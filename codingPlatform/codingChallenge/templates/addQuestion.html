@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="jumbotron container row fw-bold m-5 p-5">
+    <div class="col-md-12 mx-5">
+        <div class="card card-body bg-black opacity-75">
+        <h1 class="rounded text-center p-2 mb-3 text-success">Add Question</h1>
+           <form class="p-3 bg-light" action="" method="POST">
+              {% csrf_token %}
+                {{form.as_p}}
+             <input class="btn btn-dark bg-black text-light form-control" type="submit" name="Submit">
+             </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

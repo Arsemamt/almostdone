@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container m-5 p-3 col-8">
+    <div class="row">
+        <div class="col-12 card-body bg-black text-light p-3 rounded text-center">
+            <img class="rounded" src="{{ course.image.url }}" alt="...">
+            <h2>{{ course.title }}</h2>
+            <p>{{ course.description }}</p>
+            <a href="{{ course.link }}" class="btn btn-success">Watch Now</a>
+        </div>
+        <div class="card m-5 col-md-6 bg-black text-light">
+            <h3>Related Courses: </h3>
+            <ul>
+                {% for related_course in related_courses %}
+                <li>
+                    <a class="text-success fw-bold" href="{% url 'course_detail' related_course.pk %}">
+                        {{ related_course.title }}</a>
+                </li>
+                {% empty %}
+                <li>No related courses found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

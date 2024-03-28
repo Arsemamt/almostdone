@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<title>Home</title>
+
+{% for item in homepage %}
+<form class="container col-4 my-5" action="{% url 'course_view' %}" method="GET">
+    <div class="input-group">
+        <input class="form-control bg-light py-3" type="text" name="search_query" placeholder="Search courses...">
+        <button class="btn btn-dark" type="submit">Search</button>
+</form>
+</div>
+
+<div class="clearfix container">
+    <br>
+    <h1 class="p-3 text-center display-3 fw-bold">{{ item.title }}</h1>
+    <div class="row p-4 m-4">
+        <div class="col-7 fs-5 mt-5">
+            <p>
+                {{ item.description }}
+            </p>
+        </div>
+        <div class="col-4 mt-5">
+            <img class="rounded col-12" src="{{ item.image.url }}" alt="...">
+        </div>
+    </div>
+</div>
+
+<div class="bg-black p-3">
+    <h2 class="text-center fs-1 text-light">Some of the Courses that We Offer</h2>
+</div>
+<div class="row">
+{% for course in recent_courses %}
+<div class="col-md-4 my-3 py-3 ">
+    <div class="card bg-black text-light p-2 m-3">
+        <div class="row g-0">
+            <div class="col-md-5">
+                <img class="card-img-top mt-2" src="{{ course.image.url }}" alt="...">
+            </div>
+            <div class="col-md-7">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold"><a class="text-success" href="{% url 'course_detail' course.id %}">{{ course.title }}</a></h5>
+                </div>
+            </div>
+        </div>
+        <p class="card-text">{{ course.description|truncatechars:80 }}</p>
+        <a href="{{ course.link }}" class="card-link fw-bold text-success">Click Link</a>
+    </div>
+</div>
+{% endfor %}
+</div>
+
+<div class="p-3 bg-light opacity-75">
+    <div class="recent-results">
+        <h2>Recent Exercise Results</h2>
+        {% if recent_results %}
+            <p>Correct Answers: {{ correct_count }}/10</p> <!-- Display fraction of correct answers out of 5 -->
+            <p>Time: {{ recent_results.0.created_at }}</p> <!-- Display time only once -->
+
+            <ul>
+                {% for result in recent_results %}
+                    <li>
+                        {% if result.correct %}
+                            Correct Answer: {{ result.selected_answer }} (Correct)
+                        {% else %}
+                            Wrong Answer: {{ result.selected_answer }} (Incorrect)
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No recent exercise results available.</p>
+        {% endif %}
+    </div>    
+</div>
+
+
+{% endfor %}
+{% endblock content %}

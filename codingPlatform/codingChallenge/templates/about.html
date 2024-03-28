@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for item in about_page %}
+<div class="clearfix m-5 pt-3">
+    <h1 class="display-5 fw-bold text-light">{{ item.title}}</h1>
+
+    <div class="clearfix">
+        <br>
+        <img class="col-md-5 col-sm-6 col-lg-5 mt-2 float-end rounded m-3" src="{{ item.image.url }}" alt="...">
+        <div class="fs-4 fw-semibold">
+            <p>
+                {{ item.description }}
+            </p>
+        </div>
+    </div>
+
+
+
+
+    <div class="mb-5">
+        <section>
+            <h2 class="fw-bold text-light"> {{item.OurStory_title}} </h2>
+            <p class="fw-semibold">{{item.OurStory_content}}</p>
+        </section>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-5">
+            <section>
+                <h2 class="fw-bold text-light">{{item.OurMission_title}}</h2>
+                <p class="fw-semibold">{{item.OurMission_content}}
+                </p>
+            </section>
+        </div>
+
+        <div class="col-md-6 mb-5">
+            <section>
+                <h2 class="fw-bold text-light">{{item.OurVision_title}}</h2>
+                <p class="fw-semibold">{{item.OurVision_content}}</p>
+            </section>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-5">
+            <section>
+                <h2 class="fw-bold text-light">{{item.TeamMember_name}}</h2>
+                <p class="fw-bold">{{item.TeamMember_position}}</p>
+                <ul class="list-unstyled fw-semibold">
+                    <li>{{item.TeamMember_position1}}</li>
+
+                </ul>
+            </section>
+        </div>
+
+        <div class="col-md-6 mb-5">
+            <section>
+                <h2 class="fw-bold text-light">{{item.ContactAbout_title}}</h2>
+                <p class="fw-semibold">{{item.ContactAbout_content}} <a
+                        href="mailto:info@example.com">{{item.ContactAbout_email}}</a>.</p>
+            </section>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}

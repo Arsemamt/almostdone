@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+<a href="{% url 'exercise' %}">
+    <div class="card-columns m-5 p-5">
+        <div class="card bg-light opacity-75">
+            <div class="card-body fw-semibold">
+                <h5 class="card-title">Score: {{ score }}</h5>
+
+                <p class="card-text">Percentage: {{ percent }}%</p>
+                <p class="card-text">Time Taken: {{ time }} seconds</p>
+                <p class="card-text">Correct answers: {{ correct }}</p>
+                <p class="card-text">Incorrect answers: {{ wrong }}</p>
+                <p class="card-text">Total questions: {{ total }}</p>
+                <h5>All the best for next quiz!</h5>
+            </div>
+        </div>
+    </div>
+</a>
+
+    <div class="container">
+        <h2>Correct Answers:</h2>
+        <table class="table opacity-75">
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Correct Answer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for q in questions %}
+                <tr>
+                    <td>{{ q.question }}</td>
+                    <!-- Display the correct answer choice from the options -->
+                    <td>
+                        {% if q.ans == q.op1 %}
+                            {{ q.op1 }}
+                        {% elif q.ans == q.op2 %}
+                            {{ q.op2 }}
+                        {% elif q.ans == q.op3 %}
+                            {{ q.op3 }}
+                        {% elif q.ans == q.op4 %}
+                            {{ q.op4 }}
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+
+
+</div>
+<br>
+
+{% endblock %}

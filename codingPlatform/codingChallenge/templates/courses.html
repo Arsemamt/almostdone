@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<title>Courses</title>
+<div class="clearfix">
+    <div class="row bg-dark text-light">
+        <h5 class="pt-4 col-8 mx-5">
+            This are some courses that we hand picked for the improvement of your coding experience.
+        </h5>
+        <form class="col-3 my-3" method="GET" action="{% url 'course_view' %}">
+            <div class="input-group">
+                <input class="form-control bg-light" type="text" name="search_query" placeholder="Search courses..."
+                    value="{{ search_query }}">
+                <div class="input-group-append">
+                    <button class="btn btn-dark text-success fw-bold bg-black" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            {% for course in courses %}
+            <div class="col-md-3 my-3">
+                <div class="card bg-black text-light p-2">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img class="card-img-top mt-2" src="{{ course.image.url }}" alt="...">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h5 class="card-title fw-semibold"><a class="text-success"
+                                        href="{% url 'course_detail' course.id %}">{{ course.title }}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-text">{{ course.description|truncatechars:80 }}</p>
+                    <a href="{{ course.link }}" class="card-link fw-bold text-success">Click Link</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Pagination links -->
+            <div class="pagination px-5 p-3">
+                <span class="step-links btn btn-light text-black">
+                    {% if courses.has_previous %}
+                    <a class="btn btn-dark" href="?page=1">&laquo; First</a>
+                    <a class="btn btn-dark" href="?page={{ courses.previous_page_number }}">Previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ courses.number }} of {{ courses.paginator.num_pages }}.
+                    </span>
+
+                    {% if courses.has_next %}
+                    <a class="btn btn-dark" href="?page={{ courses.next_page_number }}">Next</a>
+                    <a class="btn btn-dark" href="?page={{ courses.paginator.num_pages }}">Last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

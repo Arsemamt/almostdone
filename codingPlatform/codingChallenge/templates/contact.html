@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<title>Contact</title>
+<div id="container-card" class="card">
+    <div class="container p-3">
+        <h1 class="text-center fs-1 fw-bold text-success bg-black   rounded p-2">Contact Us</h1>
+        <p class="fw-bold fs-5">Have questions, suggestions, or feedback? We'd love to hear from you!</p>
+
+        {% if messages %}
+        <div class="messages">
+            <ul class="messages text-light">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }} text-light" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <form action="{% url 'contact_form' %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label fw-bold">Your Name:</label>
+                <input type="text" class="form-control opacity-75" id="name" name="name" required autocomplete="off">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label fw-bold">Your Email:</label>
+                <input type="email" class="form-control opacity-75" id="email" name="email" required autocomplete="off">
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label fw-bold">Message:</label>
+                <textarea class="form-control opacity-75" id="message" name="message" rows="5" required></textarea>
+            </div><br>
+            <button type="submit" class="btn btn-dark">Submit</button>
+            <br>
+        </form>
+        <p class="fw-semibold text-center">
+            <i class="fas fa-clock"></i> Available: Mon-Fri 8:00AM - 6:00PM
+            <i class="fa fa-envelope fa-lg"></i> Email: asdf2345@gmail.com
+            <i class="fa fa-phone fa-lgF"></i> Phone Number: +2519-00-12-33-43
+        </p>
+    </div>
+</div>
+{% endblock content %}
